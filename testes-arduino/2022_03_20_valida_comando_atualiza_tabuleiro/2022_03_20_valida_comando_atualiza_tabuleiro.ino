@@ -1,3 +1,8 @@
+//#include "Arduino.h";
+#include <Arduino.h>
+#include <io.h>
+
+
 String comando = "";
 bool comandoRecebido = false;
 bool comandoValidado = false;
@@ -8,9 +13,15 @@ int destinoNumero;
 
 int tabuleiro[8][8][3];
 
+
+//////////////////////////////////////////////////////////////////////////
 void setup() {
   Serial.begin(115200);
   Serial.println("Inicializando Comunicação...");
+  Serial1.begin(9600);
+  Serial.println("Inicializando Comunicação com Módulo Bluetooth...");
+  Serial.println("Representação do tabuleiro...");
+
   for(int i=0; i<8; i++){
     tabuleiro[i][0][0] = i+1;
     tabuleiro[i][1][0] = i+8+1;
@@ -23,7 +34,8 @@ void setup() {
   }
   imprimeTabuleiro();
 }
- 
+
+//////////////////////////////////////////////////////////////////////////
 void loop()
 {
   if(comandoRecebido && !comandoValidado){
@@ -38,13 +50,10 @@ void loop()
   }
 }
 
-
-
-
 //////////////////////////////////////////////////////////////////////////
-void serialEvent() {
-  if (Serial.available()) { // Verificar se há caracteres disponíveis
-    comando = Serial.readString(); // Armazena string de comando disponivel
+void serialEvent1() {
+  if (Serial1.available()) { // Verificar se há caracteres disponíveis
+    comando = Serial1.readString(); // Armazena string de comando disponivel
     comandoRecebido = true; 
     comandoValidado = false;   
   }
@@ -174,10 +183,9 @@ bool validaJogada(){
 void realizaMovimento(){
   int auxPeca;
   Serial.println(tabuleiro[origemLetra-65][origemNumero-1][0]);
-   Serial.println(tabuleiro[destinoLetra-65][destinoNumero-1][0]);
+  Serial.println(tabuleiro[destinoLetra-65][destinoNumero-1][0]);
   auxPeca=tabuleiro[origemLetra-65][origemNumero-1][0];
   tabuleiro[origemLetra-65][origemNumero-1][0]=0;
   tabuleiro[destinoLetra-65][destinoNumero-1][0]=auxPeca;
   comandoValidado = false;
-  
 }
