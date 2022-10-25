@@ -1,5 +1,5 @@
 {
     "board": "arduino:avr:uno",
-    "programmer": "arduino:arduinoisp",
+    "programmer": "arduino:avrispmkii",
     "sketch": "testes-arduino\\2022_03_20_valida_comando_atualiza_tabuleiro\\2022_03_20_valida_comando_atualiza_tabuleiro.ino"
 }
