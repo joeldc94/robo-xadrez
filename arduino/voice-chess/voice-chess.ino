@@ -17,7 +17,7 @@ int tabuleiro[8][8][3];
 void setup() {
   Serial.begin(115200);
   Serial.println("Inicializando Comunicação...");
-  Serial1.begin(9600);
+  Serial1.begin(9600); //utilizar BaudRate 9600 para serialBT
   Serial.println("Inicializando Comunicação com Módulo Bluetooth...");
   Serial.println("Representação do tabuleiro...");
 
